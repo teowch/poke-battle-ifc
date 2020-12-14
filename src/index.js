@@ -8,4 +8,6 @@ app.get('/battle', battle);
 
 app.get('/stats', stats);
 
+console.log(app)
+
 app.listen(8080);
