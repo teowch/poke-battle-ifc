@@ -32,10 +32,7 @@ class Pokemon
     
     @maxHp = data['stats']['base']['hp'];
 
-    if data['hp']?
-      @hp = data['hp']
-    else
-      @hp = @maxHp
+    @hp = @maxHp
 
     if data['choosenMove']?
       @choosenMove = new Move data['choosenMove']
