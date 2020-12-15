@@ -114,12 +114,14 @@ class Battle
       if effectiveness == 0
         @log.message "It doesn't affect " + defender.trainerAndName() + "..."
         dmg['damage_took'] = 0
+        @log.message dmg
         miss = true
 
       else
         if Math.random() * 100 > attacker.move.accuracy
           @log.message attacker.trainerAndName() + "'s attack missed!"
           dmg['damage_took'] = -1
+          @log.message dmg
           miss = true
         
         else
@@ -137,9 +139,7 @@ class Battle
             @log.message "It's not very effective..." if effectiveness < 1
             
             damage = @damageCalculator.calculate attacker.move, attacker, defender, critical, random
-            dmg['damage_took'] = damage
             defender.takeDamage damage, "%(pokemon) was hit for %(damage)", @log
-            
             attacker.move.afterDamage attacker, defender, damage, @log
       @log.message dmg
       if miss

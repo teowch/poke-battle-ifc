@@ -92,6 +92,8 @@ class Pokemon
     message = message.replace '%(damage)', damage + " HP (" + Math.round(damage / @maxHp * 100) + "%)"
     log.message message
 
+    log.message {damage_took: damage};
+
     unless this.isAlive()
       observer.notifyFaint(this) for observer in @faintObservers
 
