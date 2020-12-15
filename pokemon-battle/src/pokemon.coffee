@@ -30,7 +30,7 @@ class Pokemon
           },
       }
     
-    @maxHp = 141 + 2 * pokemon.stats.hp
+    @maxHp = data['stats']['base']['hp'];
 
     if data['hp']?
       @hp = data['hp']
