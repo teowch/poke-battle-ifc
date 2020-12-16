@@ -20,9 +20,18 @@ class HealEffect extends DefaultEffect
   afterDamage: (attacker, defender, damage, log) ->
     heal = Math.min((this.heal damage), attacker.maxHp - attacker.hp)
     return if heal == 0
+
+    obj = 
+      healing: {
+        user: attacker.trainer.name,
+        pokemon: attacker.id
+        heal_amount: heal
+      }
     
+
     attacker.hp += heal
     log.message attacker.trainerAndName() + " healed " +  heal + " HP (" + Math.round(heal / attacker.maxHp * 100) + "%)!"
+    log.message obj
 
 
 module.exports = HealEffect

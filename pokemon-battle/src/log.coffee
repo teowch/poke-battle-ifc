@@ -14,14 +14,24 @@ class Log
                           strings: []
                             } unless @log[@turn][@attack]
 
+    @log[@turn][@attack]['damage'] = [] unless @log[@turn][@attack]['damage']?
+    @log[@turn][@attack]['heal'] = [] unless @log[@turn][@attack]['heal']?
+
     if typeof str == 'string'
       @log[@turn][@attack]['strings'].push(this.upperFirst str)
       # console.log str
     else if typeof str == 'object'
       # console.log str
-      @log[@turn][@attack]['user'] = str['user'] if str['user']?
-      @log[@turn][@attack]['pokemon'] = str['pokemon'] if str['pokemon']?
-      @log[@turn][@attack]['damage_took'] = str['damage_took'] if str['damage_took']?
+      
+
+      if str['damage']?
+        @log[@turn][@attack]['damage'].push(str['damage']) 
+
+      # @log[@turn][@attack]['damage'][0]['damage_took'] = str['damage_took'] if str['damage_took']?
+
+      if str['healing']?
+        @log[@turn][@attack]['heal'].push(str['healing'])
+
       @log[@turn][@attack]['switched'] = str['switched'] if str['switched']?
       @log[@turn][@attack]['changeStage'] = str['changeStage'] if str['changeStage']?
 

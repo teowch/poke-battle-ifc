@@ -99,29 +99,41 @@ class Battle
   
   doAttack: (attacker, defender) ->
     if attacker.canAttack @log
-      obj = {
-        user: defender.trainer.name,
-        pokemon: defender.id
-      }
-      @log.message obj
-      dmg = {
-        damage_took: null
-      }
+      # obj = {
+      #   damage: {
+      #     user: defender.trainer.name,
+      #     pokemon: defender.id
+      #   }
+      # }
+      # @log.message {damage: obj}
+
       @log.message attacker.trainerAndName() + " used " + attacker.move.name + "!"
       effectiveness = attacker.move.effectiveness attacker, defender
       miss = false
 
       if effectiveness == 0
         @log.message "It doesn't affect " + defender.trainerAndName() + "..."
-        dmg['damage_took'] = 0
-        @log.message dmg
+        obj = {
+          damage: {
+            user: defender.trainer.name,
+            pokemon: defender.id,
+            damage_took: 0
+          }
+        }
+        @log.message obj
         miss = true
 
       else
         if Math.random() * 100 > attacker.move.accuracy
           @log.message attacker.trainerAndName() + "'s attack missed!"
-          dmg['damage_took'] = -1
-          @log.message dmg
+          obj = {
+            damage: {
+              user: defender.trainer.name,
+              pokemon: defender.id,
+              damage_took: 0
+            }
+          }
+          @log.message obj
           miss = true
         
         else
@@ -141,7 +153,7 @@ class Battle
             damage = @damageCalculator.calculate attacker.move, attacker, defender, critical, random
             defender.takeDamage damage, "%(pokemon) was hit for %(damage)", @log
             attacker.move.afterDamage attacker, defender, damage, @log
-      @log.message dmg
+      # @log.message dmg
       if miss
         attacker.move.afterMiss attacker, defender, @log
     
